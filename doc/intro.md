@@ -1,3 +1,3 @@
-# Introduction to slack-cleverbot
+# Introduction to slackbot
 
 TODO: write [great documentation](http://jacobian.org/writing/what-to-write/)
