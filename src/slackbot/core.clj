@@ -4,6 +4,7 @@
             [clojure.java.io :as io]
             [org.httpkit.server :refer :all]
             [cheshire.core :as json]
+            [clj-http.client :as client]
             [ring.middleware.reload :as reload]
             [compojure.route :as route]
             [compojure.handler :as handler]
@@ -13,6 +14,17 @@
 
 (defn read-conf [file]
   (json/parse-string (slurp (or file resource-conf)) true))
+
+(defn post-to-slack [message]
+  (client/post @global/api-url
+               {:body (json/generate-string {:channel @global/channel
+                                             :username "slackard"
+                                             :text message})}))
+
+(defmulti do-command (fn [command _ _] command))
+
+(defmethod do-command :default [command user _]
+  (post-to-slack (str "Sorry, " user ", I don't seem to know about " command ".")))
 
 (defroutes routes
   (GET "/" [] "slackbot")

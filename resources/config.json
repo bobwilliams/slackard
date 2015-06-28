@@ -1,5 +1,6 @@
 {
   "mode": "dev",
   "api-url": "https://slack.com/api",
-  "server-port": 3000
+  "server-port": 3000,
+  "channel": "#general"
 }
