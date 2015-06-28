@@ -1,0 +1,6 @@
+{
+  "mode": "dev",
+  "api-url": "https://slack.com/api",
+  "api-token": "your token",
+  "server-port": 3000
+}
