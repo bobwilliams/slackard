@@ -2,6 +2,7 @@
   (:gen-class)
   (:require [slackbot.global :as global]
             [clojure.java.io :as io]
+            [clojure.string :as string]
             [org.httpkit.server :refer :all]
             [cheshire.core :as json]
             [clj-http.client :as client]
@@ -26,8 +27,16 @@
 (defmethod do-command :default [command user _]
   (post-to-slack (str "Sorry, " user ", I don't seem to know about " command ".")))
 
+(defn exec-user-command [{:keys [user text]}]
+  (let [[_ command & search-terms] (string/split text #"\s")]
+    (do-command command user search-terms)))
+
+(defn process-incoming-webhook [username text]
+  (exec-user-command {:user username :text text}))
+
 (defroutes routes
   (GET "/" [] "slackbot")
+  (POST "/sparc/" [user_name text] (process-incoming-webhook user_name text))
   (route/not-found "Not Found"))
 
 (defn app-routes [{mode :mode}]
