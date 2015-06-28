@@ -7,15 +7,12 @@
             [ring.middleware.reload :as reload]
             [compojure.route :as route]
             [compojure.handler :as handler]
-            [compojure.core :refer [defroutes GET POST]]
-            [clj-slack.users :as users]))
+            [compojure.core :refer [defroutes GET POST]]))
 
 (def resource-conf (-> "config.json" io/resource))
 
 (defn read-conf [file]
   (json/parse-string (slurp (or file resource-conf)) true))
-
-(def connection {:api-url @global/api-url :token @global/api-token})
 
 (defroutes routes
   (GET "/" [] "slackbot")

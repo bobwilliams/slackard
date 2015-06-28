@@ -7,6 +7,5 @@
                   [cheshire "5.4.0"]
                   [compojure "1.3.4"]
                   [ring "1.4.0-RC1"]
-                  [http-kit "2.1.18"]
-                  [org.julienxx/clj-slack "0.4.3"]]
-  :main slackbot.core)
+                  [http-kit "2.1.18"]]
+  :main slackbot.core)1
