@@ -14,7 +14,7 @@
 
 (defroutes routes
   (GET "/" [] "slackard here")
-  (POST "/youtube" [query] (clj-slack.chat/post-message connection "#general" (:text query)))
+  (POST "/" [query] (clj-slack.chat/post-message connection (:channel_name (str "#" query)) (:text query)))
   (route/not-found "Not Found"))
 
 (defn app-routes [mode]
