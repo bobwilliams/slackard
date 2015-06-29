@@ -35,7 +35,7 @@
   (exec-user-command {:user username :text text}))
 
 (defroutes routes
-  (GET "/" [] "slackbot")
+  (GET "/" [] "slackard here")
   (POST "/sparc/" [user_name text] (process-incoming-webhook user_name text))
   (route/not-found "Not Found"))
 
