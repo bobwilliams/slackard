@@ -1,6 +1,6 @@
-(ns slackbot.core-test
+(ns slackard.core-test
   (:require [clojure.test :refer :all]
-            [slackbot.core :refer :all]))
+            [slackard.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."
