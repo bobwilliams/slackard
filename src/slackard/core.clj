@@ -3,18 +3,19 @@
   (:require 
     [org.httpkit.server :refer :all]
     [ring.middleware.reload :as reload]
-    [cheshire.core :as json]
     [compojure.route :as route]
     [compojure.handler :as handler]
     [compojure.core :refer [defroutes GET POST]]
     [clj-slack.chat :as chat]
     [environ.core :as e]))
 
+(def index-html "<h1><a href='https://github.com/bobwilliams/slackard'>Slackard<a/></h1>A Bot for Slack written in Clojure")
+
 (def connection {:api-url (e/env :api-url)  :token (e/env :api-token)})
 
 (defroutes routes
-  (GET "/" [] "slackard here")
-  (POST "/test" [query] (chat/post-message connection "#general" (json/parse-string query)))
+  (GET "/" [] index-html)
+  (POST "/test" [data] (chat/post-message connection (str "#" (:channel_name data)) (:text data)))
   (route/not-found "Not Found"))
 
 (defn app-routes [mode]
