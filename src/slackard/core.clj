@@ -1,9 +1,9 @@
 (ns slackard.core
   (:gen-class)
   (:require 
-    [slackard.commands.youtube :as yt]
     [org.httpkit.server :refer :all]
     [ring.middleware.reload :as reload]
+    [cheshire.core :as json]
     [compojure.route :as route]
     [compojure.handler :as handler]
     [compojure.core :refer [defroutes GET POST]]
@@ -14,7 +14,7 @@
 
 (defroutes routes
   (GET "/" [] "slackard here")
-  (POST "/" [query] (clj-slack.chat/post-message connection (:channel_name (str "#" query)) (:text query)))
+  (POST "/test" [query] (chat/post-message connection "#general" (json/parse-string query)))
   (route/not-found "Not Found"))
 
 (defn app-routes [mode]
