@@ -6,16 +6,16 @@
     [compojure.route :as route]
     [compojure.handler :as handler]
     [compojure.core :refer [defroutes GET POST]]
+    [cheshire.core :as json]
     [clj-slack.chat :as chat]
     [environ.core :as e]))
 
 (def index-html "<h1><a href='https://github.com/bobwilliams/slackard'>Slackard<a/></h1>A Bot for Slack written in Clojure")
-
 (def connection {:api-url (e/env :api-url)  :token (e/env :api-token)})
 
 (defroutes routes
   (GET "/" [] index-html)
-  (POST "/test" [data] (chat/post-message connection (str "#" (:channel_name data)) (:text data)))
+  (POST "/test" req (str (:params req)))
   (route/not-found "Not Found"))
 
 (defn app-routes [mode]
